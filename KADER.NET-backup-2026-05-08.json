@@ -1,0 +1,43 @@
+{
+  "settings": {
+    "name": "Mon Entreprise",
+    "currency": "€",
+    "tax": 20,
+    "phone": "",
+    "email": "",
+    "address": ""
+  },
+  "categories": [],
+  "warehouses": [],
+  "products": [
+    {
+      "code": "PRD-0001",
+      "name": "LOK",
+      "category": "",
+      "warehouseId": "",
+      "unit": "pcs",
+      "stock": 0,
+      "threshold": 5,
+      "priceBuy": 0,
+      "priceSell": 0,
+      "description": "",
+      "id": "p-movxw99k-a76as",
+      "createdAt": "2026-05-07T20:29:29.960Z"
+    }
+  ],
+  "suppliers": [],
+  "customers": [],
+  "movements": [],
+  "purchases": [],
+  "invoices": [],
+  "counter": {
+    "p": 2,
+    "c": 1,
+    "w": 1,
+    "s": 1,
+    "cu": 1,
+    "m": 1,
+    "po": 1,
+    "inv": 1
+  }
+}
