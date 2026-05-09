@@ -1886,5 +1886,48 @@ window.addEventListener('DOMContentLoaded',()=>{
 });
 </script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script>
+// بيانات الربط الخاصة بك
+const BIN_ID = '69ff9eb2250b1311c328da2c';
+const API_KEY = '$2a$10$HN2a.yKvRkkF4rR.56kRiO63pR8Wmg8bBF9uG1.8r3PqmvQD4JIje';
+
+// 1. جلب البيانات تلقائياً عند فتح الصفحة
+async function loadFromCloud() {
+    try {
+        const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+            headers: { 'X-Master-Key': API_KEY }
+        });
+        const data = await response.json();
+        if (data.record) {
+            // ملاحظة: تأكد من اسم المفتاح الذي يستخدمه برنامجك (غالباً هو 'products' أو 'data')
+            localStorage.setItem('products', JSON.stringify(data.record));
+            // إذا كان هناك دالة في برنامجك لعرض الجدول، استدعها هنا، مثلاً:
+            if (typeof showData === "function") showData();
+        }
+    } catch (e) { console.log("خطأ في الاتصال بالسحاب"); }
+}
+
+// 2. حفظ البيانات تلقائياً
+async function saveToCloud() {
+    const currentData = JSON.parse(localStorage.getItem('products') || '[]');
+    try {
+        await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Master-Key': API_KEY
+            },
+            body: JSON.stringify(currentData)
+        });
+        console.log("تم تحديث البيانات في السحاب بنجاح");
+    } catch (e) { console.log("فشل التحديث"); }
+}
+
+// تشغيل الجلب عند التحميل
+window.addEventListener('load', loadFromCloud);
+
+// نصيحة: ابحث في كودك الأصلي عن المكان الذي تحفظ فيه البيانات في localStorage
+// وأضف بعده مباشرة هذا السطر: saveToCloud();
+</script>
 </body>
 </html>
